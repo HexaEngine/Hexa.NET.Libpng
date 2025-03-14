@@ -50,7 +50,7 @@ jobs:
         if: matrix.os == 'linux' || matrix.os == 'ubuntu-latest'
         run: |
           sudo apt-get update
-          sudo apt-get install -y build-essential cmake curl zip unzip tar
+          sudo apt-get install -y build-essential cmake curl zip unzip tar ninja
 
       - name: Install vcpkg on Linux and macOS
         if: runner.os != 'Windows'
