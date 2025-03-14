@@ -50,7 +50,7 @@ jobs:
         if: matrix.os == 'linux' || matrix.os == 'ubuntu-latest'
         run: |
           sudo apt-get update
-          sudo apt-get install -y build-essential cmake
+          sudo apt-get install -y build-essential cmake curl zip unzip tar ninja-build
 
       - name: Install vcpkg on Linux and macOS
         if: runner.os != 'Windows'
@@ -72,25 +72,25 @@ jobs:
         if: matrix.os == 'linux' || matrix.os == 'ubuntu-latest'
         run: |
           cd libpng
-          cmake -S ./ -B ./build -DCMAKE_BUILD_TYPE=Release -DCMAKE_SYSTEM_PROCESSOR=${{ matrix.cmake-arch }} -DPNG_SHARED=OFF -DPNG_STATIC=OFF -DCMAKE_TOOLCHAIN_FILE="./vcpkg/scripts/buildsystems/vcpkg.cmake"
+          cmake -S ./ -B ./build -DCMAKE_BUILD_TYPE=Release -DCMAKE_SYSTEM_PROCESSOR=${{ matrix.cmake-arch }} -DPNG_SHARED=ON -DPNG_STATIC=OFF -DVCPKG_TARGET_TRIPLET=${{ matrix.vcpkg-triplet }} -DCMAKE_TOOLCHAIN_FILE="./vcpkg/scripts/buildsystems/vcpkg.cmake"
 
       - name: Configure libpng with CMake on Windows
         if: matrix.os == 'windows-latest' && matrix.arch != 'arm64'
         run: |
           cd libpng
-          cmake -S ./ -B ./build -DCMAKE_BUILD_TYPE=Release -A ${{ matrix.cmake-arch }} -DPNG_SHARED=OFF -DPNG_STATIC=OFF -DCMAKE_TOOLCHAIN_FILE="./vcpkg/scripts/buildsystems/vcpkg.cmake"
+          cmake -S ./ -B ./build -DCMAKE_BUILD_TYPE=Release -A ${{ matrix.cmake-arch }} -DPNG_SHARED=ON -DPNG_STATIC=OFF -DVCPKG_TARGET_TRIPLET=${{ matrix.vcpkg-triplet }} -DCMAKE_TOOLCHAIN_FILE="./vcpkg/scripts/buildsystems/vcpkg.cmake"
 
       - name: Configure libpng with CMake on Windows (ARM64)
         if: matrix.os == 'windows-latest' && matrix.arch == 'arm64'
         run: |
           cd libpng
-          cmake -S ./ -B ./build -DCMAKE_BUILD_TYPE=Release -A ${{ matrix.cmake-arch }} -DPNG_SHARED=OFF -DPNG_STATIC=OFF -DCMAKE_SYSTEM_VERSION=10.0.26100.0 -DCMAKE_TOOLCHAIN_FILE="./vcpkg/scripts/buildsystems/vcpkg.cmake"
+          cmake -S ./ -B ./build -DCMAKE_BUILD_TYPE=Release -A ${{ matrix.cmake-arch }} -DPNG_SHARED=ON -DPNG_STATIC=OFF -DCMAKE_SYSTEM_VERSION=10.0.26100.0 -DVCPKG_TARGET_TRIPLET=${{ matrix.vcpkg-triplet }} -DCMAKE_TOOLCHAIN_FILE="./vcpkg/scripts/buildsystems/vcpkg.cmake"
 
       - name: Configure libpng with CMake on macOS
         if: matrix.os == 'macos-latest'
         run: |
           cd libpng
-          cmake -S ./ -B ./build -DCMAKE_BUILD_TYPE=Release -DCMAKE_OSX_ARCHITECTURES=${{ matrix.cmake-arch }} -DPNG_SHARED=OFF -DPNG_STATIC=OFF -DCMAKE_TOOLCHAIN_FILE="./vcpkg/scripts/buildsystems/vcpkg.cmake"
+          cmake -S ./ -B ./build -DCMAKE_BUILD_TYPE=Release -DCMAKE_OSX_ARCHITECTURES=${{ matrix.cmake-arch }} -DPNG_SHARED=ON -DPNG_STATIC=OFF -DVCPKG_TARGET_TRIPLET=${{ matrix.vcpkg-triplet }} -DCMAKE_TOOLCHAIN_FILE="./vcpkg/scripts/buildsystems/vcpkg.cmake"
 
       - name: Build libpng
         run: cmake --build libpng/build --config Release
