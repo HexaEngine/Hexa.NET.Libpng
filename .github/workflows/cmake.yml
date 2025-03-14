@@ -1,0 +1,91 @@
+name: Build libpng Libraries
+
+on: [workflow_dispatch]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            arch: x86_64
+            cmake-arch: x64
+          - os: linux
+            arch: arm64
+            cmake-arch: aarch64
+            runner-label: self-hosted
+          - os: windows-latest
+            arch: x86_64
+            triplet: x64-windows
+            cmake-arch: x64
+          - os: windows-latest
+            arch: x86
+            triplet: x86-windows
+            cmake-arch: win32
+          - os: windows-latest
+            arch: arm64
+            triplet: arm64-windows
+            cmake-arch: arm64
+          - os: macos-latest
+            arch: x86_64
+            cmake-arch: x86_64
+          - os: macos-latest
+            arch: arm64
+            cmake-arch: arm64
+
+    steps:
+      - uses: actions/checkout@v4.1.7
+        with:
+          repository: "pnggroup/libpng"
+          path: "libpng"
+          ref: "v1.6.47"
+          submodules: true
+
+      - name: Install Dependencies on Ubuntu
+        if: matrix.os == 'linux' || matrix.os == 'ubuntu-latest'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential cmake
+
+      - name: Configure libpng with CMake on Linux
+        if: matrix.os == 'linux' || matrix.os == 'ubuntu-latest'
+        run: |
+          cd libpng
+          cmake -S ./ -B ./build -DCMAKE_BUILD_TYPE=Release -DCMAKE_SYSTEM_PROCESSOR=${{ matrix.cmake-arch }} -Dlibpng_BUILD_TESTING=OFF -Dlibpng_BUILD_SHARED=ON -Dlibpng_BUILD_STATIC=OFF
+
+      - name: Configure libpng with CMake on Windows
+        if: matrix.os == 'windows-latest' && matrix.arch != 'arm64'
+        run: |
+          cd libpng
+          cmake -S ./ -B ./build -DCMAKE_BUILD_TYPE=Release -A ${{ matrix.cmake-arch }} -Dlibpng_BUILD_TESTING=OFF -Dlibpng_BUILD_SHARED=ON -Dlibpng_BUILD_STATIC=OFF
+
+      - name: Configure libpng with CMake on Windows (ARM64)
+        if: matrix.os == 'windows-latest' && matrix.arch == 'arm64'
+        run: |
+          cd libpng
+          cmake -S ./ -B ./build -DCMAKE_BUILD_TYPE=Release -A ${{ matrix.cmake-arch }} -Dlibpng_BUILD_TESTING=OFF -Dlibpng_BUILD_SHARED=ON -Dlibpng_BUILD_STATIC=OFF -DCMAKE_SYSTEM_VERSION=10.0.26100.0
+
+      - name: Configure libpng with CMake on macOS
+        if: matrix.os == 'macos-latest'
+        run: |
+          cd libpng
+          cmake -S ./ -B ./build -DCMAKE_BUILD_TYPE=Release -DCMAKE_OSX_ARCHITECTURES=${{ matrix.cmake-arch }} -Dlibpng_BUILD_TESTING=OFF -Dlibpng_BUILD_SHARED=ON -Dlibpng_BUILD_STATIC=OFF
+
+      - name: Build libpng
+        run: cmake --build libpng/build --config Release
+
+      - name: Move Windows binaries
+        if: matrix.os == 'windows-latest'
+        run: |
+          mv libpng/build/Release/*.dll libpng/build/
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4.3.4
+        with:
+          name: libpng-${{ matrix.os }}-${{ matrix.arch }}-artifacts
+          path: |
+            libpng/build/*.dll
+            libpng/build/*.so
+            libpng/build/*.dylib
+          if-no-files-found: ignore # 'warn' or 'ignore' or 'error'
