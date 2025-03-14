@@ -12,9 +12,10 @@ jobs:
             arch: x86_64
             cmake-arch: x64
             vcpkg-triplet: x64-linux
-          - os: ubuntu-latest
+          - os: linux
             arch: arm64
             cmake-arch: aarch64
+            runner-label: self-hosted
             vcpkg-triplet: arm64-linux
           - os: windows-latest
             arch: x86_64
