@@ -1,0 +1,244 @@
+{
+  "Namespace": "Hexa.NET.Libpng",
+  "ApiName": "Libpng",
+  "LibName": "Libpng",
+  "Usings": [ "System.Numerics", "Hexa.NET.ZLib" ],
+  "ImportType": "FunctionTable",
+  "EnableExperimentalOptions": true,
+  "GenerateConstructorsForStructs": true,
+  "GenerateSizeOfStructs": false,
+  "GenerateDelegates": true,
+  "GenerateMetadata": false,
+  "GenerateExtensions": true,
+  "DelegatesAsVoidPointer": true,
+  "BoolType": 0,
+  "IgnoredConstants": [ "PNG_HEADER_VERSION_STRING" ],
+  "IgnoredFunctions": [ "gzvprintf" ],
+  "IgnoredTypedefs": [
+    "gz_headerp",
+    "gzFilep",
+
+    "voidp",
+    "voidpc",
+    "voidpf",
+
+    "z_streamp",
+
+    "png_voidp",
+    "png_const_voidp",
+    "png_bytep",
+    "png_const_bytep",
+    "png_uint_32p",
+    "png_const_uint_32p",
+    "png_int_32p",
+    "png_const_int_32p",
+    "png_uint_16p",
+    "png_const_uint_16p",
+    "png_int_16p",
+    "png_const_int_16p",
+    "png_charp",
+    "png_const_charp",
+    "png_fixed_point_p",
+    "png_const_fixed_point_p",
+    "png_const_size_tp",
+    "png_doublep",
+    "png_const_doublep",
+    "png_bytepp",
+    "png_uint_32pp",
+    "png_int_32pp",
+    "png_uint_16pp",
+    "png_int_16pp",
+    "png_const_charpp",
+    "png_charpp",
+    "png_fixed_point_pp",
+    "png_doublepp",
+    "png_charppp",
+
+    "png_const_structrp",
+
+    "png_color_16p",
+    "png_const_color_16p",
+    "png_color_8p",
+    "png_const_color_8p",
+    "png_colorp",
+    "png_const_colorp",
+    "png_color_16pp",
+    "png_color_8pp",
+    "png_colorpp",
+
+    "png_const_uint_16pp",
+
+    "png_structrp",
+    "png_const_structrp",
+    "png_const_structp",
+    "png_structp",
+    "png_structpp",
+
+    "png_compression_bufferp",
+
+    "png_const_infop",
+    "png_const_inforp",
+    "png_infop",
+    "png_infopp",
+    "png_inforp",
+
+    "png_const_sPLT_entryp",
+    "png_sPLT_entryp",
+    "png_sPLT_entrypp",
+
+    "png_const_sPLT_tp",
+    "png_sPLT_tp",
+    "png_sPLT_tpp",
+
+    "png_const_textp",
+    "png_textp",
+    "png_textpp",
+
+    "png_const_timep",
+    "png_timep",
+    "png_timepp",
+
+    "png_const_unknown_chunkp",
+    "png_unknown_chunkp",
+    "png_unknown_chunkpp",
+
+    "png_controlp",
+
+    "png_FILE_p",
+
+    "png_imagep",
+
+    "png_row_infop",
+    "png_row_infopp",
+
+    "png_size_tp",
+
+    "png_libpng_version_1_6_47"
+  ],
+  "TypeMappings": {
+    "va_list": "nuint",
+    "time_t": "long",
+    "FILE": "FILE",
+    "png_FILE_p": "FILE*",
+
+    "gz_header_s": "GZHeader",
+    "gz_headerp": "GZHeader*",
+    "gzFile_s": "GZFile",
+    "gzFilep": "GZFile*",
+
+    "voidp": "void*",
+    "voidpc": "void*",
+    "voidpf": "void*",
+
+    "z_stream_s": "ZStream",
+    "z_streamp": "ZStream*",
+    "z_size_t": "nint",
+    "uLongf": "uint",
+
+    "png_voidp": "void*",
+    "png_const_voidp": "void*",
+    "png_const_charp": "byte*",
+    "png_bytep": "byte*",
+    "png_uint_32p": "uint*",
+    "png_const_uint_32p": "uint*",
+    "png_int_32p": "int*",
+    "png_const_int_32p": "int*",
+    "png_uint_16p": "ushort*",
+    "png_const_uint_16p": "ushort*",
+    "png_int_16p": "short*",
+    "png_const_int_16p": "short*",
+    "png_charp": "byte*",
+    "png_const_bytep": "byte*",
+    "png_fixed_point_p": "int*",
+    "png_const_fixed_point_p": "int*",
+    "png_const_size_tp": "nint",
+
+    "png_doublep": "double*",
+    "png_const_doublep": "double*",
+
+    "png_bytepp": "byte**",
+    "png_uint_32pp": "uint**",
+    "png_int_32pp": "int**",
+    "png_uint_16pp": "ushort**",
+    "png_int_16pp": "short**",
+    "png_const_charpp": "byte**",
+    "png_charpp": "byte**",
+    "png_fixed_point_pp": "int**",
+    "png_doublepp": "double**",
+    "png_charppp": "byte***",
+
+    "png_alloc_size_t": "nint",
+
+    "png_color_16_struct": "PngColor16",
+    "png_color_8_struct": "PngColor8",
+    "png_color_struct": "PngColor",
+
+    "png_color_16p": "PngColor16*",
+    "png_const_color_16p": "PngColor16*",
+    "png_color_8p": "PngColor8*",
+    "png_const_color_8p": "PngColor8*",
+    "png_colorp": "PngColor*",
+    "png_const_colorp": "PngColor*",
+
+    "png_color_16pp": "PngColor16**",
+    "png_color_8pp": "PngColor8**",
+    "png_colorpp": "PngColor**",
+
+    "png_const_uint_16pp": "ushort**",
+
+    "png_struct_def": "PngStruct",
+    "png_structrp": "PngStruct*",
+    "png_const_structrp": "PngStruct*",
+    "png_const_structp": "PngStruct*",
+    "png_structp": "PngStruct*",
+    "png_structpp": "PngStruct**",
+
+    "png_fixed_point": "int",
+    "Bytef": "byte",
+
+    "png_time_struct": "PngTime",
+    "png_const_timep": "PngTime*",
+    "png_timep": "PngTime*",
+    "png_timepp": "PngTime**",
+
+    "png_compression_bufferp": "PngCompressionBuffer*",
+
+    "png_info_def": "PngInfo",
+    "png_const_infop": "PngInfo*",
+    "png_const_inforp": "PngInfo*",
+    "png_infop": "PngInfo*",
+    "png_infopp": "PngInfo**",
+    "png_inforp": "PngInfo*",
+
+    "png_sPLT_entry_struct": "PngSPLTEntry",
+    "png_const_sPLT_entryp": "PngSPLTEntry*",
+    "png_sPLT_entryp": "PngSPLTEntry*",
+    "png_sPLT_entrypp": "PngSPLTEntry**",
+
+    "png_sPLT_struct": "PngSPLT",
+    "png_const_sPLT_tp": "PngSPLT*",
+    "png_sPLT_tp": "PngSPLT*",
+    "png_sPLT_tpp": "PngSPLT*",
+
+    "png_text_struct": "PngText",
+    "png_const_textp": "PngText*",
+    "png_textp": "PngText*",
+    "png_textpp": "PngText**",
+
+    "png_const_unknown_chunkp": "PngUnknownChunk*",
+    "png_unknown_chunkp": "PngUnknownChunk*",
+    "png_unknown_chunkpp": "PngUnknownChunk**",
+
+    "png_controlp": "PngControl*",
+
+    "png_imagep": "PngImage*",
+
+    "png_row_info_struct": "PngRowInfo",
+    "png_row_infop": "PngRowInfo*",
+    "png_row_infopp": "PngRowInfo**",
+
+    "png_size_tp": "nint*",
+
+    "png_libpng_version_1_6_47": "byte*"
+  }
+}

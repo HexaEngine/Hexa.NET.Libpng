@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35828.75 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hexa.NET.Libpng", "Hexa.NET.Libpng\Hexa.NET.Libpng.csproj", "{1E8D5223-0FDC-4835-8F0C-F666AC899403}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Generator", "Generator\Generator.csproj", "{5F086BAB-2A3C-4D59-827B-AC0608B8AECD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1E8D5223-0FDC-4835-8F0C-F666AC899403}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E8D5223-0FDC-4835-8F0C-F666AC899403}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E8D5223-0FDC-4835-8F0C-F666AC899403}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E8D5223-0FDC-4835-8F0C-F666AC899403}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F086BAB-2A3C-4D59-827B-AC0608B8AECD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F086BAB-2A3C-4D59-827B-AC0608B8AECD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F086BAB-2A3C-4D59-827B-AC0608B8AECD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F086BAB-2A3C-4D59-827B-AC0608B8AECD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2762265C-BA51-4C5D-8F26-96841B3A0B11}
+	EndGlobalSection
+EndGlobal
