@@ -23,9 +23,9 @@ namespace Hexa.NET.Libpng
 		/// <summary>
 		/// Initializes the function table, automatically called. Do not call manually, only after <see cref="FreeApi"/>.
 		/// </summary>
-		public static void InitApi()
+		public static void InitApi(INativeContext context)
 		{
-			funcTable = new FunctionTable(LibraryLoader.LoadLibrary(GetLibraryName, null), 383);
+			funcTable = new FunctionTable(context, 383);
 			funcTable.Load(0, "png_access_version_number");
 			funcTable.Load(1, "png_set_sig_bytes");
 			funcTable.Load(2, "png_sig_cmp");

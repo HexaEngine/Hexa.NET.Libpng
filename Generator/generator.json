@@ -10,6 +10,7 @@
   "GenerateDelegates": true,
   "GenerateMetadata": false,
   "GenerateExtensions": true,
+  "UseCustomContext": true,
   "DelegatesAsVoidPointer": true,
   "BoolType": 0,
   "IgnoredConstants": [ "PNG_HEADER_VERSION_STRING" ],

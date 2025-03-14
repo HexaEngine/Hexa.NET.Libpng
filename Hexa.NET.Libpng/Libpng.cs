@@ -1,12 +1,26 @@
 ﻿namespace Hexa.NET.Libpng
 {
     using HexaGen.Runtime;
+    using System.Diagnostics;
+    using System.Runtime.InteropServices;
+
+    public static class LibpngConfig
+    {
+        public static bool AotStaticLink;
+    }
 
     public unsafe static partial class Libpng
     {
         static Libpng()
         {
-            InitApi();
+            if (LibpngConfig.AotStaticLink)
+            {
+                InitApi(new NativeLibraryContext(Process.GetCurrentProcess().MainModule!.BaseAddress));
+            }
+            else
+            {
+                InitApi(new NativeLibraryContext(LibraryLoader.LoadLibrary(GetLibraryName, null)));
+            }
         }
 
 
@@ -16,7 +30,12 @@
 
         public static string GetLibraryName()
         {
-            return "libpng16";
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                return "libpng16";
+            }
+            
+            return "libpng";
         }
     }
 }
