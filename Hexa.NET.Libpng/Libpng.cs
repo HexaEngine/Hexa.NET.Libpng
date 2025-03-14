@@ -28,11 +28,20 @@
         [NativeName(NativeNameType.Value, "\" libpng version \"PNG_LIBPNG_VER_STRING\"\\n\"")]
         public const string PNG_HEADER_VERSION_STRING = $" libpng version {PNG_LIBPNG_VER_STRING}\n";
 
+
+        public const int PNG_COLOR_TYPE_PALETTE = (PNG_COLOR_MASK_COLOR | PNG_COLOR_MASK_PALETTE);
+        public const int PNG_COLOR_TYPE_RGB = (PNG_COLOR_MASK_COLOR);
+        public const int PNG_COLOR_TYPE_RGB_ALPHA = (PNG_COLOR_MASK_COLOR | PNG_COLOR_MASK_ALPHA);
+        public const int PNG_COLOR_TYPE_GRAY_ALPHA = (PNG_COLOR_MASK_ALPHA);
+        /* aliases */
+        public const int PNG_COLOR_TYPE_RGBA = PNG_COLOR_TYPE_RGB_ALPHA;
+        public const int PNG_COLOR_TYPE_GA = PNG_COLOR_TYPE_GRAY_ALPHA;
+
         public static string GetLibraryName()
         {
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
-                return "libpng16";
+                return "libpng16d";
             }
             
             return "libpng";

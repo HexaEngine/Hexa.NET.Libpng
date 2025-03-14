@@ -1,8 +1,29 @@
 ﻿namespace Hexa.NET.Libpng
 {
+    public unsafe struct SetJmpFloat128
+    {
+        public ulong High;
+        public ulong Low;
+    }
+
     public unsafe struct JmpBuf
     {
-        public fixed int Buf[16];
+        public SetJmpFloat128 Buf_0;
+        public SetJmpFloat128 Buf_1;
+        public SetJmpFloat128 Buf_2;
+        public SetJmpFloat128 Buf_3;
+        public SetJmpFloat128 Buf_4;
+        public SetJmpFloat128 Buf_5;
+        public SetJmpFloat128 Buf_6;
+        public SetJmpFloat128 Buf_7;
+        public SetJmpFloat128 Buf_8;
+        public SetJmpFloat128 Buf_9;
+        public SetJmpFloat128 Buf_10;
+        public SetJmpFloat128 Buf_11;
+        public SetJmpFloat128 Buf_12;
+        public SetJmpFloat128 Buf_13;
+        public SetJmpFloat128 Buf_14;
+        public SetJmpFloat128 Buf_15;
     }
 
     public unsafe struct PngWarningParameters
