@@ -11,28 +11,31 @@ jobs:
           - os: ubuntu-latest
             arch: x86_64
             cmake-arch: x64
-          - os: linux
+            vcpkg-triplet: x64-linux
+          - os: ubuntu-latest
             arch: arm64
             cmake-arch: aarch64
-            runner-label: self-hosted
+            vcpkg-triplet: arm64-linux
           - os: windows-latest
             arch: x86_64
-            triplet: x64-windows
             cmake-arch: x64
+            vcpkg-triplet: x64-windows-static
           - os: windows-latest
             arch: x86
-            triplet: x86-windows
             cmake-arch: win32
+            vcpkg-triplet: x86-windows-static
           - os: windows-latest
             arch: arm64
-            triplet: arm64-windows
             cmake-arch: arm64
+            vcpkg-triplet: arm64-windows-static
           - os: macos-latest
             arch: x86_64
             cmake-arch: x86_64
+            vcpkg-triplet: x64-osx
           - os: macos-latest
             arch: arm64
             cmake-arch: arm64
+            vcpkg-triplet: arm64-osx
 
     steps:
       - uses: actions/checkout@v4.1.7
@@ -47,6 +50,22 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y build-essential cmake
+
+      - name: Install vcpkg on Linux and macOS
+        if: runner.os != 'Windows'
+        run: |
+          cd libpng 
+          git clone https://github.com/microsoft/vcpkg.git
+          ./vcpkg/bootstrap-vcpkg.sh
+          ./vcpkg/vcpkg install zlib --triplet ${{ matrix.vcpkg-triplet }}
+    
+      - name: Install vcpkg on Windows
+        if: runner.os == 'Windows'
+        run: |
+          cd libpng 
+          git clone https://github.com/microsoft/vcpkg.git
+          ./vcpkg/bootstrap-vcpkg.bat
+          ./vcpkg/vcpkg.exe install zlib --triplet ${{ matrix.vcpkg-triplet }}
 
       - name: Configure libpng with CMake on Linux
         if: matrix.os == 'linux' || matrix.os == 'ubuntu-latest'
