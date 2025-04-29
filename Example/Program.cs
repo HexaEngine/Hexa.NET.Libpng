@@ -6,9 +6,8 @@ using System.Runtime.InteropServices;
 unsafe
 {
     PngStruct* png = Libpng.CreateReadStruct(Libpng.PNG_LIBPNG_VER_STRING, null, null, null);
-    
-    PngInfo* info = Libpng.CreateInfoStruct(png);
 
+    PngInfo* info = Libpng.CreateInfoStruct(png);
 
     var fs = File.OpenRead("icon.png");
 
@@ -17,10 +16,9 @@ unsafe
         fs.ReadExactly(new Span<byte>(buffer, (int)size));
     }
 
-    PngRwPtr readPtr = Read;
-    GCHandle readHandle = GCHandle.Alloc(readPtr, GCHandleType.Normal);
-    png->ReadDataFn = (void*)Utils.GetFunctionPointerForDelegate<PngRwPtr>(readPtr);
- 
+    NativeCallback<PngRwPtr> callback = new(Read);
+    Libpng.SetReadFn(png, null, callback);
+
     Libpng.ReadInfo(png, info);
 
     uint width = Libpng.GetImageWidth(png, info);
@@ -30,14 +28,13 @@ unsafe
 
     if (bitDepth == 16)
         Libpng.SetStrip16(png);
-  
+
     if (colorType == Libpng.PNG_COLOR_TYPE_PALETTE)
         Libpng.SetPaletteToRgb(png);
 
     // PNG_COLOR_TYPE_GRAY_ALPHA is always 8 or 16bit depth.
     if (colorType == Libpng.PNG_COLOR_TYPE_GRAY && bitDepth < 8)
         Libpng.SetExpandGray124To8(png);
-   
 
     if (Libpng.GetValid(png, info, Libpng.PNG_INFO_tRNS) != 0)
         Libpng.SetTRNSToAlpha(png);
@@ -61,7 +58,7 @@ unsafe
 
     Libpng.ReadImage(png, rowPointers);
 
-    readHandle.Free();
+    callback.Dispose();
     fs.Close();
 
     Libpng.DestroyReadStruct(&png, &info, null);
@@ -77,10 +74,13 @@ unsafe
         fs.Write(new Span<byte>(buffer, (int)size));
     }
 
-    PngRwPtr writePtr = Write;
-    GCHandle writeHandle = GCHandle.Alloc(writePtr, GCHandleType.Normal);
-    png->WriteDataFn = (void*)Utils.GetFunctionPointerForDelegate(writePtr);
+    unsafe void Flush(PngStruct* png)
+    {
+    }
 
+    NativeCallback<PngRwPtr> write = new(Write);
+    NativeCallback<PngFlushPtr> flush = new(Flush);
+    Libpng.SetWriteFn(png, null, write, flush);
 
     Libpng.SetIHDR(png, info, width, height, bitDepth, colorType, Libpng.PNG_INTERLACE_NONE, Libpng.PNG_COMPRESSION_TYPE_DEFAULT, Libpng.PNG_FILTER_TYPE_DEFAULT);
     Libpng.WriteInfo(png, info);
@@ -94,9 +94,9 @@ unsafe
     }
     NativeMemory.Free(rowPointers);
 
-    writeHandle.Free();
+    write.Dispose();
+    flush.Dispose();
     fs.Close();
 
     Libpng.DestroyWriteStruct(&png, &info);
 }
-

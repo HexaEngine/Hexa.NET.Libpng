@@ -37,11 +37,14 @@
         public const int PNG_COLOR_TYPE_RGBA = PNG_COLOR_TYPE_RGB_ALPHA;
         public const int PNG_COLOR_TYPE_GA = PNG_COLOR_TYPE_GRAY_ALPHA;
 
+        public const int PNG_FAST_FILTERS = (PNG_FILTER_NONE | PNG_FILTER_SUB | PNG_FILTER_UP);
+        public const int PNG_ALL_FILTERS = (PNG_FAST_FILTERS | PNG_FILTER_AVG | PNG_FILTER_PAETH);
+
         public static string GetLibraryName()
         {
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
-                return "libpng16d";
+                return "libpng16";
             }
             
             return "libpng";
