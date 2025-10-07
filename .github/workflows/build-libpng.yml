@@ -3,7 +3,7 @@ name: Build and Update libpng Libraries
 on: [workflow_dispatch]
 
 jobs:
-  build-native:
+  build:
     uses: JunaMeinhold/cmake-actions/.github/workflows/cmake.yml@v1.x.x
     with:
       lib-name: "libpng"
@@ -27,10 +27,11 @@ jobs:
       vcpkg-packages: "zlib"
 
   create-pr:
-    name: Create Pull Request
-    needs: build-native
     uses: JunaMeinhold/cmake-actions/.github/workflows/create-pr.yml@v1.x.x
+    needs: [build]
     with:
       lib-name: "libpng"
       lib-version: "v1.6.47"
-      pr-manifest-path: "hexa-workflows/hexa-workflows.json"
+      pr-branch: libpng-artifacts-branch
+      pr-base-branch: master
+      pr-reviewers: JunaMeinhold
