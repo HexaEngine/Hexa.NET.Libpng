@@ -22,7 +22,7 @@ jobs:
       bin-name-osx-normalized: "libpng.dylib"
       bin-name-linux-normalized: "libpng.so"
       bin-name-android-normalized: "libpng.so"
-      bin-name-windows-normalized: "libpng.dll"
+      bin-name-windows-normalized: "libpng16.dll"
       use-vcpkg: true
       vcpkg-packages: "zlib"
 
