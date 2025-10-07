@@ -1,0 +1,34 @@
+name: Build and Update libpng Libraries
+
+on: [workflow_dispatch]
+
+jobs:
+  build-native:
+    uses: JunaMeinhold/cmake-actions/.github/workflows/cmake.yml@v1.x.x
+    with:
+      lib-name: "libpng"
+      repo: "pnggroup/libpng"
+      repo-tag: "v1.6.47"
+      repo-path: libpng
+      cmake-flags: "-DCMAKE_BUILD_TYPE=Release -DPNG_SHARED=ON -DPNG_STATIC=OFF"
+      cmake-flags-windows: "-DCMAKE_SYSTEM_VERSION=10.0.26100.0"
+      ndk-version: "28.1.13356709"
+      android-api: "21"
+      build-output-dir: artifacts
+      bin-name-osx: "libpng16.dylib"
+      bin-name-linux: "libpng16.so"
+      bin-name-android: "libpng.so"
+      bin-name-windows: "Release/libpng16.dll"
+      bin-name-osx-normalized: "libpng.dylib"
+      bin-name-linux-normalized: "libpng.so"
+      bin-name-android-normalized: "libpng.so"
+      bin-name-windows-normalized: "libpng.dll"
+
+  create-pr:
+    name: Create Pull Request
+    needs: build-native
+    uses: JunaMeinhold/cmake-actions/.github/workflows/create-pr.yml@v1.x.x
+    with:
+      lib-name: "libpng"
+      lib-version: "v1.6.47"
+      pr-manifest-path: "hexa-workflows/hexa-workflows.json"
