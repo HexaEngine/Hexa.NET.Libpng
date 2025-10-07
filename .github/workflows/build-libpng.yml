@@ -23,6 +23,8 @@ jobs:
       bin-name-linux-normalized: "libpng.so"
       bin-name-android-normalized: "libpng.so"
       bin-name-windows-normalized: "libpng.dll"
+      use-vcpkg: true
+      vcpkg-packages: "zlib"
 
   create-pr:
     name: Create Pull Request
