@@ -14,7 +14,7 @@
 		<IsAotCompatible>true</IsAotCompatible>
 
 		<AssemblyVersion>1.6.47</AssemblyVersion>
-		<PackageVersion>1.0.3</PackageVersion>
+		<PackageVersion>1.0.4</PackageVersion>
 		<Description>A .NET wrapper for the libpng library. (v1.6.47)</Description>
 		<PackageTags>libpng png Hexa HexaGen Source Generator C# .NET DotNet Sharp Windows macOS Android Bindings Wrapper Native</PackageTags>
 		<Authors>Juna Meinhold</Authors>
@@ -24,6 +24,7 @@
 		<RepositoryType>git</RepositoryType>
 		<PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageIcon>icon.png</PackageIcon>
 
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<NoWarn>$(NoWarn);1591</NoWarn>
@@ -32,8 +33,8 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="HexaGen.Runtime" Version="1.1.18" />
-		<PackageReference Include="Hexa.NET.ZLib" Version="1.0.0" />
+		<PackageReference Include="HexaGen.Runtime" Version="1.1.22" />
+		<PackageReference Include="Hexa.NET.ZLib" Version="1.0.1" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -96,6 +97,7 @@
 	<ItemGroup>
 		<Content Include="../LICENSE.txt" Pack="true" PackagePath="\" />
 		<Content Include="../README.md" Pack="true" PackagePath="\" />
+		<Content Include="../icon.png" Pack="true" PackagePath="\" />
 	</ItemGroup>
 
 </Project>
